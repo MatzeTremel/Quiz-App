@@ -27,13 +27,22 @@
   gap: 2rem;
 }
 
-.question-btn .true  {
+.btn.correct  {
 
-     background-color: rgb(40, 214, 1);
+     background-color: rgb(40, 214, 1) ;
 }
 
-.question-btn .false {
-    background-color: rgb(214, 1, 1);
+.btn.wrong{
+    background-color: rgb(214, 1, 1) ;
+}
+
+.btn.correct:hover  {
+
+     background-color: rgb(40, 214, 1) ;
+}
+
+.btn.wrong:hover{
+    background-color: rgb(214, 1, 1) ;
 }
 .question-btn button {
   height: 120px;
@@ -47,7 +56,7 @@
 }
 .btn:hover {
   background-color: rgb(199, 198, 198);
-}
+} 
 
 .footer-btn {
   display: grid;

@@ -1,26 +1,25 @@
 const quiz = [
- {
+  {
     question: "Was ist die Hauptstadt von Deutschland?",
     answers: ["Hamburg", "München", "Berlin", "Hannover"],
-    correct: "Berlin"
+    correct: "Berlin",
   },
   {
     question: "Was ist die Hauptstadt von Frankreich?",
     answers: ["Paris", "Lyon", "Nizza", "Bordeaux"],
-    correct: "Paris"
+    correct: "Paris",
   },
   {
     question: "Was ist die Hauptstadt von Italien?",
     answers: ["Florenz", "Neapel", "Mailand", "Rom"],
-    correct: "Rom"
+    correct: "Rom",
   },
   {
     question: "Was ist die Hauptstadt von Spanien?",
     answers: ["Barcelona", "Valencia", "Madrid", "Sevilla"],
-    correct: "Madrid"
-  }
+    correct: "Madrid",
+  },
 ];
-
 let currentQuestion = 0;
 
 const mainDiv = document.createElement("div");
@@ -32,38 +31,33 @@ mainDiv.appendChild(h1Div);
 h1Div.classList.add("question");
 const h1 = document.createElement("h1");
 h1Div.appendChild(h1);
-h1.textContent =quiz[currentQuestion].question ;
+h1.textContent = quiz[currentQuestion].question;
 
-//Btn
 const btnDiv = document.createElement("div");
 mainDiv.appendChild(btnDiv);
 btnDiv.classList.add("question-btn");
-
-const button1 = document.createElement("button");
-btnDiv.appendChild(button1);
-button1.textContent = quiz[currentQuestion].answers[0];
-button1.classList.add("btn");
-
-const button2 = document.createElement("button");
-btnDiv.appendChild(button2);
-button2.textContent = quiz[currentQuestion].answers[1];
-button2.classList.add("btn");
-
-const button3 = document.createElement("button");
-btnDiv.appendChild(button3);
-button3.textContent = quiz[currentQuestion].answers[2];
-button3.classList.add("btn");
-
-const button4 = document.createElement("button");
-btnDiv.appendChild(button4);
-button4.textContent = quiz[currentQuestion].answers[3];
-button4.classList.add("btn");
-
-//btn Footer
+function renderQuestion() {
+  for (let i = 0; i < quiz[currentQuestion].answers.length; i++) {
+    const button = document.createElement("button");
+    btnDiv.appendChild(button);
+    button.textContent = quiz[currentQuestion].answers[i];
+    button.classList.add("btn");
+    button.onclick = function () {
+      console.log("geklickt");
+      if (button.textContent === quiz[currentQuestion].correct) {
+        button.classList.add("correct");
+         alert("Deine Antwort ist Richtug")
+      } else {
+        button.classList.add("wrong");
+         alert("Deine Antwort ist Falsch")
+      }
+    };
+  }
+}
+renderQuestion();
 const btnFooterDiv = document.createElement("div");
 mainDiv.appendChild(btnFooterDiv);
 btnFooterDiv.classList.add("footer-btn");
-
 const buttonSolution = document.createElement("button");
 btnFooterDiv.appendChild(buttonSolution);
 buttonSolution.textContent = "Lösung";
@@ -71,6 +65,17 @@ buttonSolution.textContent = "Lösung";
 const buttonContinue = document.createElement("button");
 btnFooterDiv.appendChild(buttonContinue);
 buttonContinue.textContent = "Weiter";
+buttonContinue.onclick = function nextQuestion() {
+  
+ 
+   if (currentQuestion === quiz.length - 1) {
+     currentQuestion = 0
+  }else{
+    currentQuestion++;
+  btnDiv.innerHTML = "";
+  renderQuestion();
+  }
+};
 
 const element = document.getElementById("body");
 element.appendChild(mainDiv);
