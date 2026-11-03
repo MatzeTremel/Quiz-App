@@ -25,7 +25,6 @@ let currentQuestion = 0;
 const mainDiv = document.createElement("div");
 mainDiv.classList.add("main-Div");
 
-//h1
 const h1Div = document.createElement("div");
 mainDiv.appendChild(h1Div);
 h1Div.classList.add("question");
@@ -36,20 +35,28 @@ h1.textContent = quiz[currentQuestion].question;
 const btnDiv = document.createElement("div");
 mainDiv.appendChild(btnDiv);
 btnDiv.classList.add("question-btn");
+
 function renderQuestion() {
+  h1.textContent = quiz[currentQuestion].question;
   for (let i = 0; i < quiz[currentQuestion].answers.length; i++) {
     const button = document.createElement("button");
     btnDiv.appendChild(button);
     button.textContent = quiz[currentQuestion].answers[i];
     button.classList.add("btn");
     button.onclick = function () {
-      console.log("geklickt");
+     
       if (button.textContent === quiz[currentQuestion].correct) {
         button.classList.add("correct");
-         alert("Deine Antwort ist Richtug")
+        alert("Deine Antwort ist Richtig !");
       } else {
+        alert("Deine Antwort ist Falsch !");
         button.classList.add("wrong");
-         alert("Deine Antwort ist Falsch")
+        for (let i = 0; i < btnDiv.children.length; i++) {
+          const currentButton = btnDiv.children[i];
+          if (currentButton.textContent === quiz[currentQuestion].correct) {
+            currentButton.classList.add("correct");
+          }
+        }
       }
     };
   }
@@ -61,23 +68,26 @@ btnFooterDiv.classList.add("footer-btn");
 const buttonSolution = document.createElement("button");
 btnFooterDiv.appendChild(buttonSolution);
 buttonSolution.textContent = "Lösung";
+buttonSolution.onclick = function () {
+  for (let i = 0; i < btnDiv.children.length; i++) {
+    const currentButton = btnDiv.children[i];
+    if (currentButton.textContent === quiz[currentQuestion].correct) {
+      currentButton.classList.add("correct");
+    }
+  }
+};
 
 const buttonContinue = document.createElement("button");
 btnFooterDiv.appendChild(buttonContinue);
 buttonContinue.textContent = "Weiter";
 buttonContinue.onclick = function nextQuestion() {
-  
- 
-   if (currentQuestion === quiz.length - 1) {
-     currentQuestion = 0
-  }else{
-    currentQuestion++;
+  currentQuestion = Math.floor(Math.random() * quiz.length);
+
   btnDiv.innerHTML = "";
   renderQuestion();
-  }
 };
 
 const element = document.getElementById("body");
 element.appendChild(mainDiv);
 
-console.log(mainDiv);
+
